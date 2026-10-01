@@ -1,0 +1,25 @@
+{
+  "brief": "6 orders are on the desk today. 4 need attention and 2 are clean, with $4,844.00 at risk.\nStart with Coastal Pharmacy PO-850-1005 (High risk, $4,086.00): Shipment left on September 18, 2026, after the cancel date of September 17, 2026. The purchase order value of $4,086.00 can be refused.\nNext is BrightMart PO-850-1004 (High risk, $300.00): Fine mesh produce bag (BrightMart) (RB-MESH-19) is on the purchase order for 240 units and is missing from the shipment and the invoice ($300.00).\nAlso open: PO-850-1002 (Medium, $74.00), PO-850-1003 (Low, $384.00).\nWork high chargeback risk first, then the largest dollar gaps. Drafts for the retailer or the warehouse are on the Exceptions tab.",
+  "source": "rules",
+  "chips": {
+    "What needs attention at BrightMart?": {
+      "steps": [
+        "list_exceptions(retailer=BrightMart)"
+      ],
+      "answer": "High risk PO-850-1004 ($300.00): Fine mesh produce bag (BrightMart) (RB-MESH-19) is on the purchase order for 240 units and is missing from the shipment and the invoice ($300.00). Low risk PO-850-1003 ($384.00): Invoice price for Earth Month printed tote (BrightMart) (RB-SHOP-03) is $6.90, but the purchase order price is $6.50. The difference on 960 units is $384.00."
+    },
+    "Why is PO-850-1005 high risk?": {
+      "steps": [
+        "get_order(po_number=PO-850-1005)"
+      ],
+      "answer": "High risk PO-850-1005 ($4,086.00): Shipment left on September 18, 2026, after the cancel date of September 17, 2026. The purchase order value of $4,086.00 can be refused."
+    },
+    "Draft a note to Coastal Pharmacy": {
+      "steps": [
+        "list_exceptions(retailer=Coastal Pharmacy)",
+        "draft_email(po_number=PO-850-1005, recipient=Coastal Pharmacy)"
+      ],
+      "answer": "To: buyer@coastalpharmacy.example\nSubject: Request to accept late shipment: PO-850-1005\n\nHello Coastal Pharmacy,\n\nPlease accept this shipment rather than refuse it.\n\nShipment left on September 18, 2026, after the cancel date of September 17, 2026. The purchase order value of $4,086.00 can be refused.\n\nChargeback risk: High\nExposure: $4,086.00\n\nThank you,\nOrder Desk\nLinden Supply"
+    }
+  }
+}

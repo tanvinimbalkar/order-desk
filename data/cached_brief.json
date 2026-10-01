@@ -1,0 +1,19 @@
+{
+  "source": "gemini",
+  "model": "gemini-3.8-flash",
+  "generated_at": "2026-10-01T02:11:01+00:00",
+  "days": {
+    "monday": {
+      "brief": "Today, 4 out of 6 orders require attention, putting a total of $4,844.00 at risk across four accounts.\nOur top high-risk item is Coastal Pharmacy on PO-850-1005 with a $4,086.00 impact, as the shipment left on September 18, 2026, after the September 17, 2026 cancel date.\nAlso at high risk is BrightMart on PO-850-1004 for $300.00, where 240 units of fine mesh bag RB-MESH-19 were missing from the shipment and invoice.\nAt medium risk is Northfield Grocers on PO-850-1002 with a $74.00 impact due to 40 units of grocery sack RB-GROC-22 failing to ship.\nAt low risk is BrightMart on PO-850-1003 with a $384.00 pricing discrepancy on 960 units of shopping bag RB-SHOP-03 between the invoice and the purchase order.",
+      "source": "gemini",
+      "model": "gemini-3.8-flash",
+      "generated_at": "2026-10-01T02:11:01+00:00"
+    },
+    "tuesday": {
+      "brief": "Today, 4 of our 6 orders require attention, putting a total of $10,352.00 at risk across three retailers.\nTop priority is Northfield Grocers on PO-850-2004, a High risk item where $7,140.00 can be refused because the shipment left on October 4, 2026, after the September 30, 2026 cancel date.\nAlso High risk for Northfield Grocers is PO-850-2003, with $2,850.00 at stake because 600 units of fine mesh bag (RB-MESH-19) are missing from the shipment and invoice.\nAt Medium risk, BrightMart PO-850-2005 has an impact of $272.00 because 80 units of Grocery sack, heavy duty (RB-GROC-22) did not ship.\nFinally, Coastal Pharmacy PO-850-2001 is Low risk with a $90.00 impact due to a price variance on 600 units of Pharmacy tote, small (RB-PHRM-07).",
+      "source": "gemini",
+      "model": "gemini-3.8-flash",
+      "generated_at": "2026-10-01T02:11:01+00:00"
+    }
+  }
+}

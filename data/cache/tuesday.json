@@ -1,0 +1,25 @@
+{
+  "brief": "6 orders are on the desk today. 5 need attention and 1 is clean, with $13,760.00 at risk.\nStart with Northfield Grocers PO-850-2004 (High risk, $7,140.00): Shipment left on October 4, 2026, after the cancel date of September 30, 2026. The purchase order value of $7,140.00 can be refused.\nNext is BrightMart PO-850-2006 (High risk, $3,408.00): Container MSKU-4471 from Linden Cut-and-Sew, Ningbo (Ningbo) now arrives October 14, 2026, after BrightMart's October 10, 2026 program launch. The purchase order value of $3,408.00 is at risk.\nAlso open: PO-850-2003 (High, $2,850.00), PO-850-2005 (Medium, $272.00), PO-850-2001 (Low, $90.00).\nWork high chargeback risk first, then the largest dollar gaps. Drafts for the retailer or the warehouse are on the Exceptions tab.",
+  "source": "rules",
+  "chips": {
+    "What needs attention at BrightMart?": {
+      "steps": [
+        "list_exceptions(retailer=BrightMart)"
+      ],
+      "answer": "High risk PO-850-2006 ($3,408.00): Container MSKU-4471 from Linden Cut-and-Sew, Ningbo (Ningbo) now arrives October 14, 2026, after BrightMart's October 10, 2026 program launch. The purchase order value of $3,408.00 is at risk. Medium risk PO-850-2005 ($272.00): Shipped 280 of 360 Store grocery sack (BrightMart) (RB-GROC-22). 80 units did not ship ($272.00)."
+    },
+    "Why is PO-850-1005 high risk?": {
+      "steps": [
+        "get_order(po_number=PO-850-1005)"
+      ],
+      "answer": "I don't see that in today's orders. Today's purchase orders are PO-850-2001, PO-850-2002, PO-850-2003, PO-850-2004, PO-850-2005, PO-850-2006."
+    },
+    "Draft a note to Coastal Pharmacy": {
+      "steps": [
+        "list_exceptions(retailer=Coastal Pharmacy)",
+        "draft_email(po_number=PO-850-2001, recipient=Coastal Pharmacy)"
+      ],
+      "answer": "To: accounts@coastal-pharmacy.example\nSubject: Please hold a deduction \u2014 PO-850-2001\n\nHello Coastal Pharmacy team,\n\nWe are correcting invoice INV-810-2001 against purchase order PO-850-2001.\n\nInvoice price for Everyday recycled PET tote (Coastal Pharmacy) (RB-PHRM-07) is $3.55, but the purchase order price is $3.40. The difference on 600 units is $90.00.\n\nChargeback risk: Low\nExposure: $90.00\n\nPlease hold any deduction while we send a corrected invoice for $90.00.\n\nThank you,\nOrder Desk\nLinden Supply"
+    }
+  }
+}
