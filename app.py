@@ -18,6 +18,7 @@ from core.email import draft_email
 from core.match import inbound_log_line, match_orders
 from core.models import ExceptionRecord, OrderMatch, Tone, format_money, pretty_date
 from core.summary import desk_numbers, ordered_exceptions
+from core.artwork import normalize_workspace
 from data.sample import SAMPLE_DAYS, build_inbound, build_sample
 
 logging.basicConfig(level=logging.INFO)
@@ -26,7 +27,7 @@ st.set_page_config(
     page_title="Order Desk",
     page_icon="👜",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 
 CSS = """
@@ -916,25 +917,68 @@ def section_panes():
     return [_Pane(label == selected) for label in labels]
 
 
+def render_sidebar() -> str:
+    """Workspace switch. Missing or unknown query values stay on Orders & Shipments."""
+    raw_workspace = st.query_params.get("workspace")
+    if isinstance(raw_workspace, list):
+        raw_workspace = raw_workspace[0] if raw_workspace else None
+    selected = normalize_workspace(raw_workspace)
+    if st.session_state.get("_workspace_param") != selected:
+        st.session_state["_workspace_param"] = selected
+        st.session_state["workspace_radio"] = selected
+    labels = {"artwork": "Artwork & Approvals", "orders": "Orders & Shipments"}
+    with st.sidebar:
+        st.markdown("**Order Desk**")
+        st.markdown(
+            "An AI ops agent for packaging companies, from artwork approval to shipment and invoice."
+        )
+        st.caption("All data fictional.")
+        choice = st.radio(
+            "Workspace",
+            ["artwork", "orders"],
+            format_func=lambda key: labels[key],
+            key="workspace_radio",
+        )
+    current = raw_workspace
+    if choice != current and not (choice == "orders" and current is None):
+        st.query_params["workspace"] = choice
+        st.rerun()
+    return choice
+
+
+def _shared_chat() -> None:
+    day_id = st.session_state.get("sample_day") or "monday"
+    if day_id not in {day["id"] for day in SAMPLE_DAYS}:
+        day_id = "monday"
+    meta = next(day for day in SAMPLE_DAYS if day["id"] == day_id)
+    render_chat(day_id, load_desk(meta["seed"], meta["id"]), day_state(day_id))
+
+
 def main() -> None:
     st.markdown(CSS, unsafe_allow_html=True)
     try:
         show_flash()
+        workspace = render_sidebar()
         render_mast()
-        day_id = render_day_picker()
-        meta = next(day for day in SAMPLE_DAYS if day["id"] == day_id)
-        results = load_desk(meta["seed"], meta["id"])
-        state = day_state(day_id)
-        agent, orders, exceptions = section_panes()
-        if agent.open is not False:
-            with agent:
-                render_agent(day_id, results, state)
-        if orders.open is not False:
-            with orders:
-                render_orders(day_id, results, state)
-        if exceptions.open is not False:
-            with exceptions:
-                render_exceptions(day_id, results, state)
+        if workspace == "artwork":
+            from ui_artwork import render_artwork_workspace
+
+            render_artwork_workspace(_shared_chat)
+        else:
+            day_id = render_day_picker()
+            meta = next(day for day in SAMPLE_DAYS if day["id"] == day_id)
+            results = load_desk(meta["seed"], meta["id"])
+            state = day_state(day_id)
+            agent, orders, exceptions = section_panes()
+            if agent.open is not False:
+                with agent:
+                    render_agent(day_id, results, state)
+            if orders.open is not False:
+                with orders:
+                    render_orders(day_id, results, state)
+            if exceptions.open is not False:
+                with exceptions:
+                    render_exceptions(day_id, results, state)
         render_footer()
     except Exception:
         logging.exception("Order Desk could not render")

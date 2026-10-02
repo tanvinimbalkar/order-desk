@@ -1,0 +1,539 @@
+{
+  "source": "rules",
+  "summary": "5 artwork projects are stuck. Copper Kettle Tea is waiting on the customer for 10 days.",
+  "tools": {
+    "get_artwork_projects": {
+      "as_of": "2026-09-28",
+      "projects": [
+        {
+          "id": "RC-01",
+          "brand": "Ridgeline Coffee",
+          "stage": "Waiting on customer",
+          "version": "v3",
+          "waiting_on": "Customer",
+          "days_waiting": 5,
+          "ship_date": "2026-10-15",
+          "risk": "yellow",
+          "order_id": null,
+          "flag": "Waiting on customer"
+        },
+        {
+          "id": "CK-01",
+          "brand": "Copper Kettle Tea",
+          "stage": "Approval on old version",
+          "version": "v3",
+          "waiting_on": "Customer",
+          "days_waiting": 10,
+          "ship_date": "2026-10-08",
+          "risk": "red",
+          "order_id": null,
+          "flag": "Approval on old version"
+        },
+        {
+          "id": "BB-01",
+          "brand": "Bloom Bakery",
+          "stage": "Revision requested",
+          "version": "v2",
+          "waiting_on": "Designer",
+          "days_waiting": 8,
+          "ship_date": "2026-10-22",
+          "risk": "yellow",
+          "order_id": null,
+          "flag": "Revision requested"
+        },
+        {
+          "id": "NF-01",
+          "brand": "North Fork Roasters",
+          "stage": "Missing spec",
+          "version": "v1",
+          "waiting_on": "Customer",
+          "days_waiting": 7,
+          "ship_date": "2026-10-11",
+          "risk": "red",
+          "order_id": null,
+          "flag": "Missing spec"
+        },
+        {
+          "id": "SS-01",
+          "brand": "Sol Snacks",
+          "stage": "Needs human decision",
+          "version": "v2",
+          "waiting_on": "Human",
+          "days_waiting": 9,
+          "ship_date": "2026-10-18",
+          "risk": "red",
+          "order_id": null,
+          "flag": "Needs human decision"
+        },
+        {
+          "id": "PA-01",
+          "brand": "Pine & Ash Candles",
+          "stage": "Handed off",
+          "version": "v2",
+          "waiting_on": "\u2014",
+          "days_waiting": 0,
+          "ship_date": "2026-10-12",
+          "risk": "green",
+          "order_id": "PO-850-1006",
+          "flag": "Handed off"
+        }
+      ]
+    },
+    "get_messages": {
+      "RC-01": {
+        "project_id": "RC-01",
+        "brand": "Ridgeline Coffee",
+        "messages": [
+          {
+            "id": "rc-1",
+            "at": "2026-09-02T09:00:00",
+            "source": "wetransfer",
+            "from": "Leo",
+            "text": "v1 of the Ridgeline Coffee 12oz pouch is ready for review."
+          },
+          {
+            "id": "rc-2",
+            "at": "2026-09-08T11:20:00",
+            "source": "email",
+            "from": "Ava Cole",
+            "text": "Please make the mountain logo larger."
+          },
+          {
+            "id": "rc-3",
+            "at": "2026-09-14T16:05:00",
+            "source": "clickup",
+            "from": "Leo",
+            "text": "Logo enlarged in v2."
+          },
+          {
+            "id": "rc-4",
+            "at": "2026-09-22T18:40:00",
+            "source": "text",
+            "from": "Ava Cole",
+            "text": "Looks good mostly.",
+            "unclear": true
+          },
+          {
+            "id": "rc-5",
+            "at": "2026-09-23T10:15:00",
+            "source": "email",
+            "from": "Mia",
+            "text": "v3 is with the customer for approval."
+          }
+        ]
+      },
+      "CK-01": {
+        "project_id": "CK-01",
+        "brand": "Copper Kettle Tea",
+        "messages": [
+          {
+            "id": "ck-1",
+            "at": "2026-09-03T09:30:00",
+            "source": "wetransfer",
+            "from": "Leo",
+            "text": "v1 of the Copper Kettle Tea carton is up."
+          },
+          {
+            "id": "ck-2",
+            "at": "2026-09-11T13:00:00",
+            "source": "clickup",
+            "from": "Leo",
+            "text": "v2 is ready."
+          },
+          {
+            "id": "ck-3",
+            "at": "2026-09-12T15:10:00",
+            "source": "email",
+            "from": "Noah Patel",
+            "text": "Approved, please proceed with v2."
+          },
+          {
+            "id": "ck-4",
+            "at": "2026-09-18T09:05:00",
+            "source": "wetransfer",
+            "from": "Leo",
+            "text": "Uploaded v3 with a tighter seal mark."
+          }
+        ]
+      },
+      "BB-01": {
+        "project_id": "BB-01",
+        "brand": "Bloom Bakery",
+        "messages": [
+          {
+            "id": "bb-1",
+            "at": "2026-09-05T10:00:00",
+            "source": "email",
+            "from": "Leo",
+            "text": "v1 of the Bloom Bakery 5lb bag is ready."
+          },
+          {
+            "id": "bb-2",
+            "at": "2026-09-16T14:12:00",
+            "source": "clickup",
+            "from": "Leo",
+            "text": "v2 uploaded. Script is still above the logo."
+          },
+          {
+            "id": "bb-3",
+            "at": "2026-09-20T19:04:00",
+            "source": "whatsapp",
+            "from": "Lila Berg",
+            "text": "Please move the bakery script below the logo and add the oat flour line."
+          }
+        ]
+      },
+      "NF-01": {
+        "project_id": "NF-01",
+        "brand": "North Fork Roasters",
+        "messages": [
+          {
+            "id": "nf-1",
+            "at": "2026-09-09T11:00:00",
+            "source": "wetransfer",
+            "from": "Leo",
+            "text": "v1 of the North Fork Roasters 2lb coffee bag is ready."
+          },
+          {
+            "id": "nf-2",
+            "at": "2026-09-10T16:30:00",
+            "source": "email",
+            "from": "Elena Brooks",
+            "text": "Approved to print."
+          },
+          {
+            "id": "nf-3",
+            "at": "2026-09-21T09:45:00",
+            "source": "email",
+            "from": "Priya",
+            "text": "We still need Pantone colors and the quantity before the factory can start."
+          }
+        ]
+      },
+      "SS-01": {
+        "project_id": "SS-01",
+        "brand": "Sol Snacks",
+        "messages": [
+          {
+            "id": "ss-1",
+            "at": "2026-09-06T10:20:00",
+            "source": "email",
+            "from": "Leo",
+            "text": "v1 of the Sol Snacks 8oz pouch is ready."
+          },
+          {
+            "id": "ss-2",
+            "at": "2026-09-17T12:00:00",
+            "source": "wetransfer",
+            "from": "Leo",
+            "text": "v2 uploaded."
+          },
+          {
+            "id": "ss-3",
+            "at": "2026-09-18T09:15:00",
+            "source": "email",
+            "from": "Jordan Lee",
+            "text": "Please print this run matte."
+          },
+          {
+            "id": "ss-4",
+            "at": "2026-09-19T20:10:00",
+            "source": "whatsapp",
+            "from": "Sam Ortiz",
+            "text": "We need gloss, not matte."
+          }
+        ]
+      },
+      "PA-01": {
+        "project_id": "PA-01",
+        "brand": "Pine & Ash Candles",
+        "messages": [
+          {
+            "id": "pa-1",
+            "at": "2026-09-01T09:00:00",
+            "source": "email",
+            "from": "Leo",
+            "text": "v1 of the Pine & Ash Candles label is ready."
+          },
+          {
+            "id": "pa-2",
+            "at": "2026-09-04T11:30:00",
+            "source": "email",
+            "from": "Chris Hale",
+            "text": "Please show the quantity and Pantone on the label."
+          },
+          {
+            "id": "pa-3",
+            "at": "2026-09-10T15:00:00",
+            "source": "email",
+            "from": "Chris Hale",
+            "text": "Approved. This is the final version."
+          },
+          {
+            "id": "pa-4",
+            "at": "2026-09-12T10:00:00",
+            "source": "email",
+            "from": "Priya",
+            "text": "Handed v2 to the partner factory for PO-850-1006."
+          }
+        ]
+      }
+    },
+    "get_checklist": {
+      "RC-01": {
+        "project_id": "RC-01",
+        "brand": "Ridgeline Coffee",
+        "checklist": [
+          {
+            "id": "rc-logo",
+            "request": "Make the mountain logo larger",
+            "message_id": "rc-2",
+            "done_in": "v2",
+            "status": "done in v2"
+          }
+        ]
+      },
+      "CK-01": {
+        "project_id": "CK-01",
+        "brand": "Copper Kettle Tea",
+        "checklist": [
+          {
+            "id": "ck-seal",
+            "request": "Tighten the seal mark",
+            "message_id": "ck-4",
+            "done_in": "v3",
+            "status": "done in v3"
+          }
+        ]
+      },
+      "BB-01": {
+        "project_id": "BB-01",
+        "brand": "Bloom Bakery",
+        "checklist": [
+          {
+            "id": "bb-script",
+            "request": "Move the bakery script below the logo and add the oat flour line",
+            "message_id": "bb-3",
+            "done_in": null,
+            "status": "not done"
+          }
+        ]
+      },
+      "NF-01": {
+        "project_id": "NF-01",
+        "brand": "North Fork Roasters",
+        "checklist": []
+      },
+      "SS-01": {
+        "project_id": "SS-01",
+        "brand": "Sol Snacks",
+        "checklist": []
+      },
+      "PA-01": {
+        "project_id": "PA-01",
+        "brand": "Pine & Ash Candles",
+        "checklist": [
+          {
+            "id": "pa-qty",
+            "request": "Show the quantity and Pantone on the label",
+            "message_id": "pa-2",
+            "done_in": "v2",
+            "status": "done in v2"
+          }
+        ]
+      }
+    },
+    "get_versions": {
+      "RC-01": {
+        "project_id": "RC-01",
+        "brand": "Ridgeline Coffee",
+        "versions": [
+          {
+            "id": "v1",
+            "uploaded": "2026-09-02",
+            "file": "images/RC-01/v1.png"
+          },
+          {
+            "id": "v2",
+            "uploaded": "2026-09-14",
+            "file": "images/RC-01/v2.png"
+          },
+          {
+            "id": "v3",
+            "uploaded": "2026-09-23",
+            "file": "images/RC-01/v3.png"
+          }
+        ]
+      },
+      "CK-01": {
+        "project_id": "CK-01",
+        "brand": "Copper Kettle Tea",
+        "versions": [
+          {
+            "id": "v1",
+            "uploaded": "2026-09-03",
+            "file": "images/CK-01/v1.png"
+          },
+          {
+            "id": "v2",
+            "uploaded": "2026-09-11",
+            "file": "images/CK-01/v2.png"
+          },
+          {
+            "id": "v3",
+            "uploaded": "2026-09-18",
+            "file": "images/CK-01/v3.png"
+          }
+        ]
+      },
+      "BB-01": {
+        "project_id": "BB-01",
+        "brand": "Bloom Bakery",
+        "versions": [
+          {
+            "id": "v1",
+            "uploaded": "2026-09-05",
+            "file": "images/BB-01/v1.png"
+          },
+          {
+            "id": "v2",
+            "uploaded": "2026-09-16",
+            "file": "images/BB-01/v2.png"
+          }
+        ]
+      },
+      "NF-01": {
+        "project_id": "NF-01",
+        "brand": "North Fork Roasters",
+        "versions": [
+          {
+            "id": "v1",
+            "uploaded": "2026-09-09",
+            "file": "images/NF-01/v1.png"
+          }
+        ]
+      },
+      "SS-01": {
+        "project_id": "SS-01",
+        "brand": "Sol Snacks",
+        "versions": [
+          {
+            "id": "v1",
+            "uploaded": "2026-09-06",
+            "file": "images/SS-01/v1.png"
+          },
+          {
+            "id": "v2",
+            "uploaded": "2026-09-17",
+            "file": "images/SS-01/v2.png"
+          }
+        ]
+      },
+      "PA-01": {
+        "project_id": "PA-01",
+        "brand": "Pine & Ash Candles",
+        "versions": [
+          {
+            "id": "v1",
+            "uploaded": "2026-09-01",
+            "file": "images/PA-01/v1.png"
+          },
+          {
+            "id": "v2",
+            "uploaded": "2026-09-09",
+            "file": "images/PA-01/v2.png"
+          }
+        ]
+      }
+    },
+    "compare_versions": {
+      "RC-01|v1|v3": {
+        "project_id": "RC-01",
+        "a": "v1",
+        "b": "v3",
+        "items": [
+          {
+            "id": "rc-logo",
+            "request": "Make the mountain logo larger",
+            "status": "done",
+            "reason": "Present in v2.",
+            "message_id": "rc-2"
+          }
+        ],
+        "source": "rules"
+      },
+      "CK-01|v1|v3": {
+        "project_id": "CK-01",
+        "a": "v1",
+        "b": "v3",
+        "items": [
+          {
+            "id": "ck-seal",
+            "request": "Tighten the seal mark",
+            "status": "done",
+            "reason": "Present in v3.",
+            "message_id": "ck-4"
+          }
+        ],
+        "source": "rules"
+      },
+      "BB-01|v1|v2": {
+        "project_id": "BB-01",
+        "a": "v1",
+        "b": "v2",
+        "items": [
+          {
+            "id": "bb-script",
+            "request": "Move the bakery script below the logo and add the oat flour line",
+            "status": "not_done",
+            "reason": "Not on the later version.",
+            "message_id": "bb-3"
+          }
+        ],
+        "source": "rules"
+      },
+      "NF-01|v1|v1": {
+        "project_id": "NF-01",
+        "a": "v1",
+        "b": "v1",
+        "items": [],
+        "source": "rules"
+      },
+      "SS-01|v1|v2": {
+        "project_id": "SS-01",
+        "a": "v1",
+        "b": "v2",
+        "items": [],
+        "source": "rules"
+      },
+      "PA-01|v1|v2": {
+        "project_id": "PA-01",
+        "a": "v1",
+        "b": "v2",
+        "items": [
+          {
+            "id": "pa-qty",
+            "request": "Show the quantity and Pantone on the label",
+            "status": "done",
+            "reason": "Present in v2.",
+            "message_id": "pa-2"
+          }
+        ],
+        "source": "rules"
+      }
+    }
+  },
+  "answers": {
+    "Which coffee orders are approved but not shipped?": {
+      "steps": [
+        "get_artwork_projects()",
+        "get_versions(project=RC-01)",
+        "get_messages(project=RC-01)",
+        "get_versions(project=NF-01)",
+        "get_messages(project=NF-01)"
+      ],
+      "answer": "Ridgeline Coffee v3 is not approved, so it is not an approved order waiting to ship. North Fork Roasters is approved on v1 and is not shipped. Source: email nf-2 on 2026-09-10, \"Approved to print.\".",
+      "resolve": []
+    }
+  }
+}

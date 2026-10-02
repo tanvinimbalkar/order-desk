@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from core.artwork import write_artwork_cache  # noqa: E402
 from core.brief import BriefError, build_facts, generate_gemini_brief, rule_based_brief, write_day_cache  # noqa: E402
 from core.chat import build_chip_cache  # noqa: E402
 from core.match import match_orders  # noqa: E402
@@ -48,6 +49,8 @@ def main() -> int:
             source = "rules"
         write_day_cache(day["id"], text, chips, source)
         print(f"{day['label']}: saved a {len(text.splitlines())}-line brief and 3 answers ({source})")
+    write_artwork_cache()
+    print("Saved artwork tool results to data/cache/artwork.json")
     print("Saved fallbacks to data/cache/")
     return 0
 

@@ -1,0 +1,448 @@
+[
+  {
+    "id": "RC-01",
+    "brand": "Ridgeline Coffee",
+    "product_type": "pouch",
+    "size": "12oz",
+    "material": "matte laminate",
+    "finish": "matte",
+    "quantity": 8000,
+    "ship_date": "2026-10-15",
+    "pantone": ["PMS 4625 C"],
+    "dieline": true,
+    "order_id": null,
+    "waiting_on": "customer",
+    "waiting_since": "2026-09-23",
+    "stage": "Waiting on customer",
+    "versions": [
+      {
+        "id": "v1",
+        "uploaded": "2026-09-02",
+        "file": "images/RC-01/v1.png",
+        "visual": {"logo": "circle", "logo_scale": 0.28, "date_label": "", "extra_lines": [], "finish_label": "MATTE"}
+      },
+      {
+        "id": "v2",
+        "uploaded": "2026-09-14",
+        "file": "images/RC-01/v2.png",
+        "visual": {"logo": "circle", "logo_scale": 0.62, "date_label": "", "extra_lines": [], "finish_label": "MATTE"}
+      },
+      {
+        "id": "v3",
+        "uploaded": "2026-09-23",
+        "file": "images/RC-01/v3.png",
+        "visual": {"logo": "circle", "logo_scale": 0.62, "date_label": "SEP 23 2026", "extra_lines": [], "finish_label": "MATTE"}
+      }
+    ],
+    "approvals": [],
+    "checklist": [
+      {
+        "id": "rc-logo",
+        "request": "Make the mountain logo larger",
+        "message_id": "rc-2",
+        "done_in": "v2"
+      }
+    ],
+    "conflicts": [],
+    "messages": [
+      {
+        "id": "rc-1",
+        "at": "2026-09-02T09:00:00",
+        "source": "wetransfer",
+        "from": "Leo",
+        "text": "v1 of the Ridgeline Coffee 12oz pouch is ready for review."
+      },
+      {
+        "id": "rc-2",
+        "at": "2026-09-08T11:20:00",
+        "source": "email",
+        "from": "Ava Cole",
+        "text": "Please make the mountain logo larger."
+      },
+      {
+        "id": "rc-3",
+        "at": "2026-09-14T16:05:00",
+        "source": "clickup",
+        "from": "Leo",
+        "text": "Logo enlarged in v2."
+      },
+      {
+        "id": "rc-4",
+        "at": "2026-09-22T18:40:00",
+        "source": "text",
+        "from": "Ava Cole",
+        "text": "Looks good mostly.",
+        "unclear": true
+      },
+      {
+        "id": "rc-5",
+        "at": "2026-09-23T10:15:00",
+        "source": "email",
+        "from": "Mia",
+        "text": "v3 is with the customer for approval."
+      }
+    ]
+  },
+  {
+    "id": "CK-01",
+    "brand": "Copper Kettle Tea",
+    "product_type": "carton",
+    "size": "20 tea bags",
+    "material": "kraft paper",
+    "finish": "matte",
+    "quantity": 4000,
+    "ship_date": "2026-10-08",
+    "pantone": ["PMS 7526 C"],
+    "dieline": true,
+    "order_id": null,
+    "waiting_on": "customer",
+    "waiting_since": "2026-09-18",
+    "stage": "Approval on old version",
+    "versions": [
+      {
+        "id": "v1",
+        "uploaded": "2026-09-03",
+        "file": "images/CK-01/v1.png",
+        "visual": {"logo": "square", "logo_scale": 0.4, "date_label": "", "extra_lines": [], "finish_label": "MATTE"}
+      },
+      {
+        "id": "v2",
+        "uploaded": "2026-09-11",
+        "file": "images/CK-01/v2.png",
+        "visual": {"logo": "square", "logo_scale": 0.4, "date_label": "", "extra_lines": ["SEAL"], "finish_label": "MATTE"}
+      },
+      {
+        "id": "v3",
+        "uploaded": "2026-09-18",
+        "file": "images/CK-01/v3.png",
+        "visual": {"logo": "square", "logo_scale": 0.4, "date_label": "", "extra_lines": ["TIGHT SEAL"], "finish_label": "MATTE"}
+      }
+    ],
+    "approvals": [
+      {
+        "version": "v2",
+        "at": "2026-09-12",
+        "from": "Noah Patel",
+        "message_id": "ck-3",
+        "counts": true,
+        "quote": "Approved, please proceed with v2."
+      }
+    ],
+    "checklist": [
+      {
+        "id": "ck-seal",
+        "request": "Tighten the seal mark",
+        "message_id": "ck-4",
+        "done_in": "v3"
+      }
+    ],
+    "conflicts": [],
+    "messages": [
+      {
+        "id": "ck-1",
+        "at": "2026-09-03T09:30:00",
+        "source": "wetransfer",
+        "from": "Leo",
+        "text": "v1 of the Copper Kettle Tea carton is up."
+      },
+      {
+        "id": "ck-2",
+        "at": "2026-09-11T13:00:00",
+        "source": "clickup",
+        "from": "Leo",
+        "text": "v2 is ready."
+      },
+      {
+        "id": "ck-3",
+        "at": "2026-09-12T15:10:00",
+        "source": "email",
+        "from": "Noah Patel",
+        "text": "Approved, please proceed with v2."
+      },
+      {
+        "id": "ck-4",
+        "at": "2026-09-18T09:05:00",
+        "source": "wetransfer",
+        "from": "Leo",
+        "text": "Uploaded v3 with a tighter seal mark."
+      }
+    ]
+  },
+  {
+    "id": "BB-01",
+    "brand": "Bloom Bakery",
+    "product_type": "bread bag",
+    "size": "5lb",
+    "material": "paper",
+    "finish": "matte",
+    "quantity": 2500,
+    "ship_date": "2026-10-22",
+    "pantone": ["PMS 7527 C"],
+    "dieline": true,
+    "order_id": null,
+    "waiting_on": "designer",
+    "waiting_since": "2026-09-20",
+    "stage": "Revision requested",
+    "versions": [
+      {
+        "id": "v1",
+        "uploaded": "2026-09-05",
+        "file": "images/BB-01/v1.png",
+        "visual": {"logo": "triangle", "logo_scale": 0.45, "date_label": "", "extra_lines": ["SCRIPT ABOVE LOGO"], "finish_label": "MATTE"}
+      },
+      {
+        "id": "v2",
+        "uploaded": "2026-09-16",
+        "file": "images/BB-01/v2.png",
+        "visual": {"logo": "triangle", "logo_scale": 0.45, "date_label": "", "extra_lines": ["SCRIPT ABOVE LOGO"], "finish_label": "MATTE"}
+      }
+    ],
+    "approvals": [],
+    "checklist": [
+      {
+        "id": "bb-script",
+        "request": "Move the bakery script below the logo and add the oat flour line",
+        "message_id": "bb-3",
+        "done_in": null
+      }
+    ],
+    "conflicts": [],
+    "messages": [
+      {
+        "id": "bb-1",
+        "at": "2026-09-05T10:00:00",
+        "source": "email",
+        "from": "Leo",
+        "text": "v1 of the Bloom Bakery 5lb bag is ready."
+      },
+      {
+        "id": "bb-2",
+        "at": "2026-09-16T14:12:00",
+        "source": "clickup",
+        "from": "Leo",
+        "text": "v2 uploaded. Script is still above the logo."
+      },
+      {
+        "id": "bb-3",
+        "at": "2026-09-20T19:04:00",
+        "source": "whatsapp",
+        "from": "Lila Berg",
+        "text": "Please move the bakery script below the logo and add the oat flour line."
+      }
+    ]
+  },
+  {
+    "id": "NF-01",
+    "brand": "North Fork Roasters",
+    "product_type": "coffee bag",
+    "size": "2lb",
+    "material": "film",
+    "finish": "gloss",
+    "quantity": null,
+    "ship_date": "2026-10-11",
+    "pantone": [],
+    "dieline": false,
+    "order_id": null,
+    "waiting_on": "customer",
+    "waiting_since": "2026-09-21",
+    "stage": "Missing spec",
+    "versions": [
+      {
+        "id": "v1",
+        "uploaded": "2026-09-09",
+        "file": "images/NF-01/v1.png",
+        "visual": {"logo": "circle", "logo_scale": 0.4, "date_label": "", "extra_lines": [], "finish_label": "GLOSS"}
+      }
+    ],
+    "approvals": [
+      {
+        "version": "v1",
+        "at": "2026-09-10",
+        "from": "Elena Brooks",
+        "message_id": "nf-2",
+        "counts": true,
+        "quote": "Approved to print."
+      }
+    ],
+    "checklist": [],
+    "conflicts": [],
+    "messages": [
+      {
+        "id": "nf-1",
+        "at": "2026-09-09T11:00:00",
+        "source": "wetransfer",
+        "from": "Leo",
+        "text": "v1 of the North Fork Roasters 2lb coffee bag is ready."
+      },
+      {
+        "id": "nf-2",
+        "at": "2026-09-10T16:30:00",
+        "source": "email",
+        "from": "Elena Brooks",
+        "text": "Approved to print."
+      },
+      {
+        "id": "nf-3",
+        "at": "2026-09-21T09:45:00",
+        "source": "email",
+        "from": "Priya",
+        "text": "We still need Pantone colors and the quantity before the factory can start."
+      }
+    ]
+  },
+  {
+    "id": "SS-01",
+    "brand": "Sol Snacks",
+    "product_type": "snack pouch",
+    "size": "8oz",
+    "material": "film",
+    "finish": null,
+    "quantity": 6000,
+    "ship_date": "2026-10-18",
+    "pantone": ["PMS 137 C"],
+    "dieline": true,
+    "order_id": null,
+    "waiting_on": "human",
+    "waiting_since": "2026-09-19",
+    "stage": "Needs human decision",
+    "versions": [
+      {
+        "id": "v1",
+        "uploaded": "2026-09-06",
+        "file": "images/SS-01/v1.png",
+        "visual": {"logo": "square", "logo_scale": 0.4, "date_label": "", "extra_lines": [], "finish_label": ""}
+      },
+      {
+        "id": "v2",
+        "uploaded": "2026-09-17",
+        "file": "images/SS-01/v2.png",
+        "visual": {"logo": "square", "logo_scale": 0.4, "date_label": "", "extra_lines": [], "finish_label": "MATTE"}
+      }
+    ],
+    "approvals": [],
+    "checklist": [],
+    "conflicts": [
+      {
+        "contact": "Jordan Lee",
+        "source": "email",
+        "message_id": "ss-3",
+        "quote": "Please print this run matte."
+      },
+      {
+        "contact": "Sam Ortiz",
+        "source": "whatsapp",
+        "message_id": "ss-4",
+        "quote": "We need gloss, not matte."
+      }
+    ],
+    "messages": [
+      {
+        "id": "ss-1",
+        "at": "2026-09-06T10:20:00",
+        "source": "email",
+        "from": "Leo",
+        "text": "v1 of the Sol Snacks 8oz pouch is ready."
+      },
+      {
+        "id": "ss-2",
+        "at": "2026-09-17T12:00:00",
+        "source": "wetransfer",
+        "from": "Leo",
+        "text": "v2 uploaded."
+      },
+      {
+        "id": "ss-3",
+        "at": "2026-09-18T09:15:00",
+        "source": "email",
+        "from": "Jordan Lee",
+        "text": "Please print this run matte."
+      },
+      {
+        "id": "ss-4",
+        "at": "2026-09-19T20:10:00",
+        "source": "whatsapp",
+        "from": "Sam Ortiz",
+        "text": "We need gloss, not matte."
+      }
+    ]
+  },
+  {
+    "id": "PA-01",
+    "brand": "Pine & Ash Candles",
+    "product_type": "candle label",
+    "size": "8oz tin",
+    "material": "paper",
+    "finish": "matte",
+    "quantity": 3000,
+    "ship_date": "2026-10-12",
+    "pantone": ["PMS 567 C"],
+    "dieline": true,
+    "order_id": "PO-850-1006",
+    "waiting_on": null,
+    "waiting_since": null,
+    "stage": "Handed off",
+    "versions": [
+      {
+        "id": "v1",
+        "uploaded": "2026-09-01",
+        "file": "images/PA-01/v1.png",
+        "visual": {"logo": "triangle", "logo_scale": 0.36, "date_label": "", "extra_lines": [], "finish_label": "MATTE"}
+      },
+      {
+        "id": "v2",
+        "uploaded": "2026-09-09",
+        "file": "images/PA-01/v2.png",
+        "visual": {"logo": "triangle", "logo_scale": 0.5, "date_label": "SEP 09 2026", "extra_lines": ["QTY 3000", "PMS 567 C"], "finish_label": "MATTE", "approved_stamp": true}
+      }
+    ],
+    "approvals": [
+      {
+        "version": "v2",
+        "at": "2026-09-10",
+        "from": "Chris Hale",
+        "message_id": "pa-3",
+        "counts": true,
+        "quote": "Approved. This is the final version."
+      }
+    ],
+    "checklist": [
+      {
+        "id": "pa-qty",
+        "request": "Show the quantity and Pantone on the label",
+        "message_id": "pa-2",
+        "done_in": "v2"
+      }
+    ],
+    "conflicts": [],
+    "messages": [
+      {
+        "id": "pa-1",
+        "at": "2026-09-01T09:00:00",
+        "source": "email",
+        "from": "Leo",
+        "text": "v1 of the Pine & Ash Candles label is ready."
+      },
+      {
+        "id": "pa-2",
+        "at": "2026-09-04T11:30:00",
+        "source": "email",
+        "from": "Chris Hale",
+        "text": "Please show the quantity and Pantone on the label."
+      },
+      {
+        "id": "pa-3",
+        "at": "2026-09-10T15:00:00",
+        "source": "email",
+        "from": "Chris Hale",
+        "text": "Approved. This is the final version."
+      },
+      {
+        "id": "pa-4",
+        "at": "2026-09-12T10:00:00",
+        "source": "email",
+        "from": "Priya",
+        "text": "Handed v2 to the partner factory for PO-850-1006."
+      }
+    ]
+  }
+]

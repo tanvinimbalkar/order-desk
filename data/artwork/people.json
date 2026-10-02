@@ -1,0 +1,24 @@
+{
+  "as_of": "2026-09-28",
+  "company": "Linden Supply",
+  "account_manager": {
+    "name": "Mia",
+    "role": "Account manager",
+    "email": "mia@lindensupply.example"
+  },
+  "designer": {
+    "name": "Leo",
+    "role": "Designer",
+    "email": "leo@lindensupply.example"
+  },
+  "production": {
+    "name": "Priya",
+    "role": "Production coordinator",
+    "email": "priya@lindensupply.example"
+  },
+  "factory": {
+    "name": "Mr. Chen",
+    "role": "Partner factory",
+    "email": "chen@partnerfactory.example"
+  }
+}

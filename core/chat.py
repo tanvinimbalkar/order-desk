@@ -123,6 +123,19 @@ def execute_tool(name: str, args: dict, results: list[OrderMatch], resolved_keys
         return draft_message(results, str(args.get("po_number") or ""), args.get("recipient"))
     if name == "mark_resolved":
         return mark_resolved(results, str(args.get("po_number") or ""), resolved_keys)
+    if name in {"get_artwork_projects", "get_messages", "get_checklist", "get_versions", "compare_versions"}:
+        from core.artwork import compare_versions, get_artwork_projects, get_checklist, get_messages, get_versions
+
+        project = str(args.get("project") or "")
+        if name == "get_artwork_projects":
+            return get_artwork_projects()
+        if name == "get_messages":
+            return get_messages(project)
+        if name == "get_checklist":
+            return get_checklist(project)
+        if name == "get_versions":
+            return get_versions(project)
+        return compare_versions(project, str(args.get("a") or ""), str(args.get("b") or ""))
     return {"error": "Unknown tool"}
 
 
@@ -267,7 +280,60 @@ def _tool_declarations():
     ]
 
 
-def _live_answer(question: str, results: list[OrderMatch], resolved_keys: set[str]) -> dict:
+def _artwork_declarations():
+    from google.genai import types
+
+    string = lambda description: types.Schema(type=types.Type.STRING, description=description)
+
+    def decl(name: str, description: str, properties: dict, required: list[str] | None = None):
+        return types.FunctionDeclaration(
+            name=name,
+            description=description,
+            parameters=types.Schema(
+                type=types.Type.OBJECT,
+                properties=properties,
+                required=required or [],
+            ),
+        )
+
+    return [
+        decl(
+            "get_artwork_projects",
+            "List artwork projects, stages, versions, who they are waiting on, and any linked order.",
+            {},
+        ),
+        decl(
+            "get_messages",
+            "Message log for one artwork project, oldest first.",
+            {"project": string("Project id or brand, such as RC-01 or Ridgeline Coffee.")},
+            ["project"],
+        ),
+        decl(
+            "get_checklist",
+            "Revision checklist for one artwork project.",
+            {"project": string("Project id or brand.")},
+            ["project"],
+        ),
+        decl(
+            "get_versions",
+            "Artwork versions and upload dates for one project.",
+            {"project": string("Project id or brand.")},
+            ["project"],
+        ),
+        decl(
+            "compare_versions",
+            "Compare two versions of one project against the revision checklist.",
+            {
+                "project": string("Project id or brand."),
+                "a": string("Earlier version id, such as v1."),
+                "b": string("Later version id, such as v3."),
+            },
+            ["project", "a", "b"],
+        ),
+    ]
+
+
+def _live_answer(question: str, results: list[OrderMatch], resolved_keys: set[str], *, include_artwork: bool = False) -> dict:
     from google.genai import types
 
     from core.brief import gemini_settings
@@ -276,7 +342,10 @@ def _live_answer(question: str, results: list[OrderMatch], resolved_keys: set[st
     from google import genai
 
     client = genai.Client(api_key=_key)
-    tool = types.Tool(function_declarations=_tool_declarations())
+    declarations = _tool_declarations()
+    if include_artwork:
+        declarations = declarations + _artwork_declarations()
+    tool = types.Tool(function_declarations=declarations)
     config = types.GenerateContentConfig(
         tools=[tool],
         system_instruction=(
@@ -312,6 +381,31 @@ def _live_answer(question: str, results: list[OrderMatch], resolved_keys: set[st
     raise RuntimeError("tool loop ended without an answer")
 
 
+def _rate_limited(exc: Exception) -> bool:
+    message = str(exc)
+    return "429" in message or "RESOURCE_EXHAUSTED" in message
+
+
+def _artwork_answer_ok(answer: str) -> bool:
+    """Reject a live answer that names a version or purchase order outside the books."""
+    from core.artwork import load_projects
+    from data.sample import SEED, TUESDAY_SEED, build_sample
+
+    projects = load_projects()
+    versions = {item["id"].lower() for project in projects for item in project["versions"]}
+    for token in re.findall(r"\bv\d+\b", answer, flags=re.IGNORECASE):
+        if token.lower() not in versions:
+            return False
+    known = set()
+    for day, seed in (("monday", SEED), ("tuesday", TUESDAY_SEED)):
+        for packet in build_sample(seed, day=day):
+            known.add(packet.purchase_order.po_number.upper())
+    for po_number in re.findall(r"PO-\d{3}-\d{4}", answer, flags=re.IGNORECASE):
+        if po_number.upper() not in known:
+            return False
+    return True
+
+
 def ask(
     question: str,
     results: list[OrderMatch],
@@ -322,6 +416,30 @@ def ask(
 ) -> dict:
     """Answer one question. Chips fall back to the saved cache. Never raises."""
     if question not in CHIPS:
+        from core.artwork import artwork_reply
+
+        artwork = artwork_reply(question)
+        if artwork is not None:
+            if not cache_only:
+                try:
+                    live = _live_answer(question, results, resolved_keys, include_artwork=True)
+                    if _artwork_answer_ok(live.get("answer") or ""):
+                        return live
+                except Exception as exc:
+                    logging.warning("Agent chat used the saved fallback: %s", exc.__class__.__name__)
+                    if _rate_limited(exc):
+                        try:
+                            import streamlit as st
+
+                            st.session_state["artwork_demo"] = True
+                        except Exception:
+                            pass
+                        artwork = {
+                            **artwork,
+                            "answer": "The live model is at its limit for the moment. Showing the saved answer.\n\n"
+                            + artwork["answer"],
+                        }
+            return artwork
         routed = _mentions(question, results)
         if routed:
             return {"steps": [], "answer": routed, "resolve": []}
