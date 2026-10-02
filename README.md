@@ -99,3 +99,44 @@ MODEL = "gemini-3.8-flash"
 Secrets let the deployed app write a live brief and answer questions. If the key is missing, or the API fails, the app uses `data/cache/` and does not show an error. If those files are missing too, the brief is built from the exception list.
 
 5. Deploy. The app should open on the Agent tab for Monday, with Run morning check and the empty-state card.
+
+## Artwork & Approvals
+
+The same app has a second workspace, Artwork & Approvals. The public link stays in **demo mode**: fictional Linden Supply projects, no Gmail, Drive, or other live connections, and no model calls. A **trial** is a separate private deployment for one company, pointed at that company's own tools.
+
+`?workspace=artwork` opens the artwork workspace. `?workspace=orders`, or no parameter, opens Orders & Shipments exactly as before.
+
+Demo and trial use the same tables. Demo stores them in SQLite. A trial stores them in Postgres (Supabase). Files stay in the company's Google Drive; the app stores the Drive file id and a small preview, not a second copy of the print file.
+
+### Onboard a trial company in under 30 minutes
+
+1. Create a Supabase project and copy the Postgres connection string.
+2. Copy `tenant.example.yaml` to `tenant.yaml`. Set `mode: trial`, `llm_paid: true`, and the paid model name. Turn on Gmail, Drive, and WhatsApp. Add ClickUp or HubSpot only if the company uses them.
+3. Set environment variables: `DATABASE_URL`, `TOKEN_KEY` (a long random string), `LLM_API_KEY`, `LLM_PAID=true`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`.
+4. In Google Cloud, create an OAuth client, enable the Gmail API and the Drive API, and add the redirect you will use. Scopes are `gmail.readonly`, `gmail.compose` (drafts only), and `drive.readonly`.
+5. ClickUp: a personal token with read access to one list. HubSpot: a private app token that can read deals and contacts. Paste each token on the Settings tab. It is encrypted with `TOKEN_KEY` before it is stored.
+6. Deploy on Render as a private web service: `pip install -r requirements.txt`, then `streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true`. Put the same environment variables on the service. Require the Render login or your host's login in front of the app. The app also asks each teammate for the email and password stored for them.
+7. Add a Render cron, or set the GitHub Actions variable `ARTWORK_TRIAL` to `true`, so `python worker.py` runs each morning. Streamlit does not run that job itself.
+8. Sign in, open Settings, confirm each connector says connected, and upload one WhatsApp export (`.txt` or `.zip`) to prove the pipeline. Re-uploading the same export does not duplicate messages.
+9. Send one proof from the Proofing tab and open the token link in a private window. The customer does not need an account. Factory links work the same way, in English and Simplified Chinese.
+
+When the trial ends, run `python delete_tenant_data.py --yes`. That removes the company's stored rows.
+
+Customer proof links look like `?proof=...` and factory links look like `?factory=...`. They expire after 30 days and can be revoked. An old or revoked link says: "This link has expired, please contact [company]."
+
+### What data this app accesses and how it is protected
+
+This app reads the mail, files, and chats you choose so your team can see which packaging job is stuck. It does not send email to your customers. When someone presses Approve, the note is saved as a draft for a person to send.
+
+Here is what a trial can read, and only if you switch that connection on:
+
+- **Gmail.** Messages from a label you pick, or from the inbox after a start date. The app can create drafts. It cannot send mail.
+- **Google Drive.** Files inside one folder you pick. Each subfolder is a project. The app does not change those files.
+- **WhatsApp.** Only a chat export you upload. There is no connection to WhatsApp itself.
+- **ClickUp and HubSpot.** Optional. Read-only, and only if you turn them on.
+- **Proof and factory links.** A customer or factory opens one project from a private link. They do not see your other projects.
+
+Passwords are stored as hashes. Connector tokens are encrypted before they are saved. Pages should be served over HTTPS, which Render and Streamlit Cloud do. Customer text is sent to an AI model only in a trial, and only to a paid model you name in the config. It is not sent to a free model, and it is not used to train a model. The public demo never calls a model; it uses the saved fictional examples.
+
+You choose how long the trial data is kept. At the end, `delete_tenant_data.py` deletes what this app stored. Files in Google Drive are not deleted, because this app never took a copy of them.
+

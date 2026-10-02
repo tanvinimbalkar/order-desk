@@ -1,0 +1,57 @@
+# Copy to tenant.yaml for a private trial. The public Order Desk link does not use this file.
+# Demo mode is the default when tenant.yaml is absent.
+
+mode: demo                      # demo or trial. Trial is one private deployment per company.
+company_name: Linden Supply     # Shown on proof links, the factory portal, and the morning brief.
+database_url: ""                # Trial: a Supabase Postgres URL. Or set DATABASE_URL. Demo uses local SQLite.
+as_of: "2026-09-28"             # Demo clock so "waiting 5 days" stays stable. Leave blank in a trial to use today's date.
+
+# Project codes found in an email subject or a chat message. Example: PJ-1042
+project_code_pattern: "[A-Z]{2}-\\d{2}"
+
+# An AI match below this score goes to the Unsorted inbox for a person to assign.
+confidence_threshold: 0.75
+
+# Suggest a nudge when a customer has had the proof at least this many days.
+nudge_days: 3
+
+brief_time: "08:00"             # Local time the worker should finish the morning brief.
+timezone: America/Denver
+brief_delivery: draft           # draft saves the brief for a person. smtp sends it only if SMTP_HOST is set.
+brief_sender: mia@lindensupply.example
+
+# Trial data is sent only when paid is true and LLM_API_KEY is a paid key.
+# provider is gemini or claude. model is the paid model name from that provider.
+llm_provider: gemini
+llm_model: ""
+llm_paid: false
+
+retention_days: 90              # How long a trial keeps message and file metadata. delete_tenant_data.py removes it.
+
+# Editable assumptions for the Trial Results page.
+minutes_per_issue: 12
+minutes_per_draft: 8
+minutes_per_proof: 20
+
+connectors:
+  gmail:                        # Required for a trial. Read mail, and create drafts. Never sends.
+    enabled: false
+    label: ""                   # Gmail label to read. Blank reads the inbox from start_date.
+    start_date: ""              # YYYY-MM-DD
+  drive:                        # Required for a trial. Read-only. One folder; each subfolder is a project.
+    enabled: false
+    root_folder_id: ""
+  whatsapp:                     # Required for a trial. Upload a chat export. There is no WhatsApp API.
+    enabled: false
+  clickup:                      # Optional. Read-only token, one list.
+    enabled: false
+    list_id: ""
+  hubspot:                      # Optional. Private app token, read-only deals and contacts.
+    enabled: false
+
+# Environment variables (do not put secrets in this file):
+# DATABASE_URL, TOKEN_KEY, LLM_API_KEY, LLM_PROVIDER, LLM_MODEL, LLM_PAID
+# ADMIN_EMAIL, ADMIN_PASSWORD
+# GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
+# SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD
+# ORDER_DESK_MODE, ORDER_DESK_TENANT

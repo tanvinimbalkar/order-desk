@@ -957,13 +957,18 @@ def _shared_chat() -> None:
 def main() -> None:
     st.markdown(CSS, unsafe_allow_html=True)
     try:
+        from artwork_agent.portal_ui import render_public_portal
+
+        if render_public_portal():
+            render_footer()
+            return
         show_flash()
         workspace = render_sidebar()
         render_mast()
         if workspace == "artwork":
-            from ui_artwork import render_artwork_workspace
+            from ui_artwork_agent import render_artwork_agent
 
-            render_artwork_workspace(_shared_chat)
+            render_artwork_agent()
         else:
             day_id = render_day_picker()
             meta = next(day for day in SAMPLE_DAYS if day["id"] == day_id)

@@ -1,5 +1,8 @@
 .streamlit/secrets.toml
 .env
+tenant.yaml
+data/artwork/demo.sqlite
+data/artwork/uploads/
 __pycache__/
 .venv/
 venv/
